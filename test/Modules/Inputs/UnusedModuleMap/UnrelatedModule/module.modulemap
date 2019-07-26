@@ -1,0 +1,5 @@
+module UnrelatedModule {
+  header "dummy.h"
+
+  export *
+}

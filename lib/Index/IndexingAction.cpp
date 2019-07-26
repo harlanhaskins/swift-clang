@@ -502,13 +502,13 @@ private:
                      bool IsModuleFile, bool IsMissing) override {
     bool sawIt = DependencyCollector::sawDependency(
         Filename, FromModule, IsSystem, IsModuleFile, IsMissing);
-    if (auto *FE = SourceMgr->getFileManager().getFile(Filename)) {
+    if (auto FE = SourceMgr->getFileManager().getFile(Filename)) {
       if (sawIt)
-        Entries.insert(FE);
+        Entries.insert(*FE);
       // Record system-ness for all files that we pass through.
-      if (IsSystemByUID.size() < FE->getUID() + 1)
-        IsSystemByUID.resize(FE->getUID() + 1);
-      IsSystemByUID[FE->getUID()] = IsSystem || isInSysroot(Filename);
+      if (IsSystemByUID.size() < (*FE)->getUID() + 1)
+        IsSystemByUID.resize((*FE)->getUID() + 1);
+      IsSystemByUID[(*FE)->getUID()] = IsSystem || isInSysroot(Filename);
     }
     return sawIt;
   }

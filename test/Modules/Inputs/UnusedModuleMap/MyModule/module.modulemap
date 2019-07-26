@@ -1,0 +1,5 @@
+module MyModule {
+  header "dummy.h"
+
+  export *
+}

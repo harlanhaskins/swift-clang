@@ -764,10 +764,10 @@ void TextDiagnostic::printDiagnosticMessage(raw_ostream &OS,
 void TextDiagnostic::emitFilename(StringRef Filename, const SourceManager &SM) {
   SmallVector<char, 128> AbsoluteFilename;
   if (DiagOpts->AbsolutePath) {
-    const DirectoryEntry *Dir = SM.getFileManager().getDirectory(
+    auto Dir = SM.getFileManager().getDirectory(
         llvm::sys::path::parent_path(Filename));
     if (Dir) {
-      StringRef DirName = SM.getFileManager().getCanonicalName(Dir);
+      StringRef DirName = SM.getFileManager().getCanonicalName(*Dir);
       llvm::sys::path::append(AbsoluteFilename, DirName,
                               llvm::sys::path::filename(Filename));
       Filename = StringRef(AbsoluteFilename.data(), AbsoluteFilename.size());

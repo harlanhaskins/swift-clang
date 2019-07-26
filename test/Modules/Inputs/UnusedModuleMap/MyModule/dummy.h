@@ -1,0 +1,1 @@
+#import <TransitivelyImportedModule/dummy.h>

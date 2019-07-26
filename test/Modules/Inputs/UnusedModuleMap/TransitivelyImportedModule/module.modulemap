@@ -1,0 +1,5 @@
+module TransitivelyImportedModule {
+  header "dummy.h"
+
+  export *
+}
